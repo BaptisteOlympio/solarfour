@@ -24,4 +24,4 @@ packages = ["solf"]
 
 
 [tool.setuptools.package-dir]
-"" = "src"
+"" = "backend/src"
