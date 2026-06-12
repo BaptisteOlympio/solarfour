@@ -6,7 +6,10 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "ipykernel>=7.2.0",
+    "numpy>=2.4.6",
     "pyserial>=3.5",
+    "pysolar>=0.13",
+    "pytz>=2026.2",
 ]
 
 [build-system]
