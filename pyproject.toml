@@ -5,9 +5,11 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "fastapi[standard]>=0.136.3",
     "ipykernel>=7.2.0",
     "numpy>=2.4.6",
     "pyserial>=3.5",
+    "pyserial-asyncio>=0.6",
     "pysolar>=0.13",
     "pytz>=2026.2",
 ]
