@@ -1,4 +1,5 @@
 import asyncio
+import json
 import struct
 from asyncio import Queue
 from contextlib import asynccontextmanager
@@ -7,7 +8,9 @@ from typing import Dict
 
 import serial
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 
 
 @dataclass
@@ -52,12 +55,39 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+# Configure CORS to allow connections from the UI
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.get("/moveby")
-async def test(theta: float, phi: float):
-    command = Angles(theta=theta, phi=phi)
-    await command_queue.put(command)
-    return {"theta": theta, "phi": phi}
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    try:
+        while True:
+            data = await websocket.receive_text()
+            try:
+                message = json.loads(data)
+                theta = float(message.get("theta", 0))
+                phi = float(message.get("phi", 0))
+                command = Angles(theta=theta, phi=phi)
+                await command_queue.put(command)
+                await websocket.send_text(
+                    json.dumps({"status": "ok", "theta": theta, "phi": phi})
+                )
+            except (json.JSONDecodeError, KeyError, ValueError) as e:
+                await websocket.send_text(
+                    json.dumps({"status": "error", "message": str(e)})
+                )
+    except Exception as e:
+        print(f"WebSocket error: {e}")
+    finally:
+        print("WebSocket disconnected")
 
 
 if __name__ == "__main__":
