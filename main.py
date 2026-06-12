@@ -1,15 +1,18 @@
-import serial
-import time
 import struct
+import time
+
+import serial
 
 ARDUINO_UNO = serial.Serial(port="COM7", baudrate=9600, timeout=0.1)
 
-def send_angle(theta: float, phi: float) -> bytes:   
+
+def send_angle(theta: float, phi: float) -> bytes:
     binary_data = struct.pack("<ff", theta, phi)
     ARDUINO_UNO.write(binary_data)
     time.sleep(0.05)
     data = ARDUINO_UNO.readline()
     return data
+
 
 def main():
     print("Hello from solarfour!")
