@@ -19,6 +19,11 @@ class Angles:
     phi: float
 
 
+@dataclass
+class Mirror:
+    normal_angle: Angles
+
+
 command_queue: Queue = Queue()
 ARDUINO_UNO = serial.Serial(port="COM7", baudrate=9600, timeout=5)
 
