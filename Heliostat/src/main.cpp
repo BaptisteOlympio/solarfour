@@ -1,6 +1,6 @@
 #include <AccelStepper.h>
 
-#define STEPS_PER_REV 2048
+#define STEPS_PER_REV 8192
 #define SPEED_RPM 10  // Tune here — 5 to 15 RPM is reliable for 28BYJ-48
 
 // Motor 1 pins: IN1, IN3, IN2, IN4
@@ -19,8 +19,6 @@
 AccelStepper myStepper1(AccelStepper::FULL4WIRE, M1_IN1, M1_IN3, M1_IN2, M1_IN4);
 AccelStepper myStepper2(AccelStepper::FULL4WIRE, M2_IN1, M2_IN3, M2_IN2, M2_IN4);
 
-// Steps per degree (2048 steps / 360 degrees for 28BYJ-48)
-#define STEPS_PER_DEGREE 5.688888
 
 // Serial parsing state
 #define MAX_INPUT_SIZE 64
@@ -87,9 +85,9 @@ void loop() {
       // End of line, parse the data
       inputBuffer[inputIndex] = '\0';
       
-      // Parse two float values separated by comma
+      // Parse two float values: azimuth,altitude
       char* commaPos = strchr(inputBuffer, ',');
-      if (commaPos != NULL && currentPhase == PHASE_DONE) {
+      if (commaPos != NULL) {
         *commaPos = '\0';
         float azimuthAngle = atof(inputBuffer);
         float altitudeAngle = atof(commaPos + 1);
@@ -100,8 +98,8 @@ void loop() {
         }
         
         // Convert angles to steps and store for sequential movement
-        targetAzimuthSteps = (long)(azimuthAngle * STEPS_PER_DEGREE);
-        targetAltitudeSteps = (long)(altitudeAngle * STEPS_PER_DEGREE);
+        targetAzimuthSteps = (long)(azimuthAngle * STEPS_PER_REV / 360);
+        targetAltitudeSteps = (long)(altitudeAngle * STEPS_PER_REV / 360);
         
         // Start with azimuth phase
         currentPhase = PHASE_AZIMUTH;
