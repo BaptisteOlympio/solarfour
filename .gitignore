@@ -1,0 +1,25 @@
+# Maven build output
+target/
+
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Maven wrapper (keep the .cmd/.sh, ignore downloaded jar if using wrapper)
+.mvn/wrapper/maven-wrapper.jar
+
+
+# IDE - VS Code
+.vscode/
+
+
+# Logs
+*.log
+
+# Local environment / secrets (if you add config later)
+.env
+application-local.yml
