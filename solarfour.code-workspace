@@ -1,1 +1,11 @@
-{"folders": [{"name": "backend", "path": "backend"}]}
+{
+    "folders": [
+        {
+            "name": "backend",
+            "path": "backend"
+        }
+    ],
+    "settings": {
+        "java.configuration.updateBuildConfiguration": "automatic"
+    }
+}
