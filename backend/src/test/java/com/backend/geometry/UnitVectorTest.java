@@ -7,5 +7,6 @@ import org.junit.jupiter.api.Test;
 public class UnitVectorTest {
     @Test
     void is_vector_unit() {
+        UnitVector v = UnitVector.fromCartesian(30,-45,10);
     }
 }
