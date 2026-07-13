@@ -15,6 +15,27 @@ public class UnitVector {
         this.z = z;
     }
 
+    public double getX() {
+        return this.x;
+    }
+
+    public double getY() {
+        return this.y;
+    }
+
+    public double getZ() {
+        return this.z;
+    }
+
+    public double getAzimuth() {
+        return this.azimuth;
+    }
+
+    public double getAltitude() {
+        return this.altitude;
+    }
+
+
     private static double norm(double x, double y, double z) {
         return Math.sqrt(x * x + y * y + z * z);
     }
@@ -60,24 +81,8 @@ public class UnitVector {
         return new UnitVector(azimuth, altitude, x, y, z);
     }
 
-    public double getX() {
-        return this.x;
+    public static UnitVector bisector(UnitVector v1, UnitVector v2) {
+        return UnitVector.fromCartesian(v1.getX() + v2.getX(), v1.getY() + v2.getY(),
+                v1.getZ() + v2.getZ());
     }
-
-    public double getY() {
-        return this.y;
-    }
-
-    public double getZ() {
-        return this.z;
-    }
-
-    public double getAzimuth() {
-        return this.azimuth;
-    }
-
-    public double getAltitude() {
-        return this.altitude;
-    }
-
 }
