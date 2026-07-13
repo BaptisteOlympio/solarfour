@@ -10,7 +10,7 @@
         "java.format.settings.url": ".vscode/eclipse-java-google-style.xml",
         "java.settings.url": "",
         "[java]": {
-            "editor.tabSize": 2
+            "editor.tabSize": 1
         },
         "java.debug.settings.onBuildFailureProceed": true
     }
