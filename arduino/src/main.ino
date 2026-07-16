@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <AccelStepper.h>
 
 
 void setup() {
@@ -43,7 +44,7 @@ void loop() {
     }
 }
 
-// #include <AccelStepper.h>
+// 
 
 // #define STEPS_PER_REV 2048
 // #define SPEED_RPM 10  // Tune here — 5 to 15 RPM is reliable for 28BYJ-48
